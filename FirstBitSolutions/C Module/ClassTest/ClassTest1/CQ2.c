@@ -5,7 +5,7 @@ void main()
 	int year;
 	year =  2025;
 	
-	if(year%4==0&&year%4!=0)
+	if(year%4==0&&year%100!=0)
 	{
 		printf("It is leaf Year");
 	}
