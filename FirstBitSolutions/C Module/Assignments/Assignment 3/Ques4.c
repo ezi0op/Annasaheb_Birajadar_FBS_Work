@@ -5,27 +5,20 @@
 #include<math.h>
 void main()
 {
-	int a, prime=1;
-	int i=2;
-	printf("Enter a number: ");
-	scanf("%d", &a);
-
-
-		if(a <=1){
-			prime = 0;
-		}else{
-			while(i<=sqrt(a)){
-				if(a%i==0){
-					prime=0;
-				}
-				i++;
-			}
-		}
-		if(prime){
-			printf("%d is prime",a);
-		}else{
-				printf("%d is not prime",a);
-		}
+	int no,isPrime =1,i;
+	printf("Enter a number:");
+	scanf("%d",&no);
+	for(i=2; i<=no/2; i++) {
+		if(no%i==0) {
+			isPrime=0;
+			break;
+		}	
+	}
+	if(isPrime==1) {
+		printf("This is  prime");
+	} else {
+		printf("This is not prime");
+	}
 		
 }
 
