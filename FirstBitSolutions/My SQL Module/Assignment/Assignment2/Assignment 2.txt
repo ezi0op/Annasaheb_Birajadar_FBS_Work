@@ -1,0 +1,965 @@
+Task / Problems: 
+1) Create the table Member, Books and Issue without any constraints as 
+mentioned in the schema description above. 
+
+mysql> create database assignment_2;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use assignment_2;
+Database changed
+mysql> create table member
+    -> (mid int unique,
+    -> name varchar(30),
+    -> address varchar(30),
+    -> acc_open_date Date,
+    -> m_type varchar(20),
+    -> fees_paid int,
+    -> max_books_allowed int,
+    -> p_amount decimal(7,2));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_assignment_2 |
++------------------------+
+| member                 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> table member;
+Empty set (0.00 sec)
+
+
+mysql> desc member;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| mid               | int          | YES  | UNI | NULL    |       |
+| name              | varchar(30)  | YES  |     | NULL    |       |
+| address           | varchar(30)  | YES  |     | NULL    |       |
+| acc_open_date     | date         | YES  |     | NULL    |       |
+| m_type            | varchar(20)  | YES  |     | NULL    |       |
+| fees_paid         | int          | YES  |     | NULL    |       |
+| max_books_allowed | int          | YES  |     | NULL    |       |
+| p_amount          | decimal(7,2) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> create table books
+    -> (b_no int,
+    -> b_name varchar(30),
+    -> a_name varchar(30),
+    -> cost decimal(7,2),
+    -> category char(10));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc books;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| b_no     | int          | YES  |     | NULL    |       |
+| b_name   | varchar(30)  | YES  |     | NULL    |       |
+| a_name   | varchar(30)  | YES  |     | NULL    |       |
+| cost     | decimal(7,2) | YES  |     | NULL    |       |
+| category | char(10)     | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create table issue
+    -> (l_issue_id int,
+    -> b_no int,
+    -> mid int ,
+    -> issue_date Date,
+    -> return_date Date);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc issue;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| l_issue_id  | int  | YES  |     | NULL    |       |
+| b_no        | int  | YES  |     | NULL    |       |
+| mid         | int  | YES  |     | NULL    |       |
+| issue_date  | date | YES  |     | NULL    |       |
+| return_date | date | YES  |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+2) View the structure of the tables.
+ mysql> show create table  member;
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                                                                                                       |
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| member | CREATE TABLE `member` (
+  `mid` int DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
+  `acc_open_date` date DEFAULT NULL,
+  `m_type` varchar(20) DEFAULT NULL,
+  `fees_paid` int DEFAULT NULL,
+  `max_books_allowed` int DEFAULT NULL,
+  `p_amount` decimal(7,2) DEFAULT NULL,
+  UNIQUE KEY `mid` (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table  book;
+ERROR 1146 (42S02): Table 'assignment_2.book' doesn't exist
+mysql> show create table  books;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| books | CREATE TABLE `books` (
+  `b_no` int DEFAULT NULL,
+  `b_name` varchar(30) DEFAULT NULL,
+  `a_name` varchar(30) DEFAULT NULL,
+  `cost` decimal(7,2) DEFAULT NULL,
+  `category` char(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table  issue;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                        |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| issue | CREATE TABLE `issue` (
+  `l_issue_id` int DEFAULT NULL,
+  `b_no` int DEFAULT NULL,
+  `mid` int DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+
+
+3) Drop the Member table 
+
+mysql> drop table member;
+Query OK, 0 rows affected (0.03 sec)
+
+4) Create the table Member again as per the schema description with the 
+following constraints. 
+a. Member_Id – Primary Key 
+b. Membership_type - ‘Lifetime’,’ Annual’, ‘Half Yearly’,’ Quarterly’ 
+
+
+mysql> create table member
+    -> (mid int primary key,
+    -> name varchar(30),
+    -> address varchar(30),
+    -> acc_open_date Date,
+    -> m_type enum('Lifetime','Annual', 'Half Yearly',' Quarterly'));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc member;
++---------------+------------------------------------------------------+------+-----+---------+-------+
+| Field         | Type                                                 | Null | Key | Default | Extra |
++---------------+------------------------------------------------------+------+-----+---------+-------+
+| mid           | int                                                  | NO   | PRI | NULL    |       |
+| name          | varchar(30)                                          | YES  |     | NULL    |       |
+| address       | varchar(30)                                          | YES  |     | NULL    |       |
+| acc_open_date | date                                                 | YES  |     | NULL    |       |
+| m_type        | enum('Lifetime','Annual','Half Yearly',' Quarterly') | YES  |     | NULL    |       |
++---------------+------------------------------------------------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table member;
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                       |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| member | CREATE TABLE `member` (
+  `mid` int NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
+  `acc_open_date` date DEFAULT NULL,
+  `m_type` enum('Lifetime','Annual','Half Yearly',' Quarterly') DEFAULT NULL,
+  PRIMARY KEY (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+5) Modify the table Member increase the width of the member name to 30 
+characters. 
+
+
+mysql> alter table member
+    -> modify column mid varchar(30);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+6) Add a column named as Reference of Char(30) to Issue table. 
+
+
+mysql> alter table issue
+    -> add column reference varchar(30);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+7) Delete/Drop the column Reference from Issue. 
+
+
+mysql> alter table issue
+    -> drop column reference;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+8) Rename the table Issue to Lib_Issue. 
+
+
+mysql> alter table issue
+    -> rename to lib_issue;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc lib_issue;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| l_issue_id  | int  | YES  |     | NULL    |       |
+| b_no        | int  | YES  |     | NULL    |       |
+| mid         | int  | YES  |     | NULL    |       |
+| issue_date  | date | YES  |     | NULL    |       |
+| return_date | date | YES  |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc member;
++---------------+------------------------------------------------------+------+-----+---------+-------+
+| Field         | Type                                                 | Null | Key | Default | Extra |
++---------------+------------------------------------------------------+------+-----+---------+-------+
+| mid           | varchar(30)                                          | NO   | PRI | NULL    |       |
+| name          | varchar(30)                                          | YES  |     | NULL    |       |
+| address       | varchar(30)                                          | YES  |     | NULL    |       |
+| acc_open_date | date                                                 | YES  |     | NULL    |       |
+| m_type        | enum('Lifetime','Annual','Half Yearly',' Quarterly') | YES  |     | NULL    |       |
++---------------+------------------------------------------------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc books;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| b_no     | int          | YES  |     | NULL    |       |
+| b_name   | varchar(30)  | YES  |     | NULL    |       |
+| a_name   | varchar(30)  | YES  |     | NULL    |       |
+| cost     | decimal(7,2) | YES  |     | NULL    |       |
+| category | char(10)     | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table member
+    -> add column fees_paid int,
+    -> add column max_books_allowed int,
+    -> add column p_amount decimal(7,2);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+9) Insert following data in table Member 
+
+
+mysql> insert into member(mid,name,address,acc_open_date,m_type,fees_paid,max_books_allowed,p_amount)
+    -> values(1,"richa sharma","pune","10-12-05",'lifetime',25000,5,50),
+    -> (2,"garima sen","pune","2025-09-26",'annual',1000,3,null);
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> table member;
++-----+--------------+---------+---------------+----------+-----------+-------------------+----------+
+| mid | name         | address | acc_open_date | m_type   | fees_paid | max_books_allowed | p_amount |
++-----+--------------+---------+---------------+----------+-----------+-------------------+----------+
+| 1   | richa sharma | pune    | 2010-12-05    | Lifetime |     25000 |                 5 |    50.00 |
+| 2   | garima sen   | pune    | 2025-09-26    | Annual   |      1000 |                 3 |     NULL |
++-----+--------------+---------+---------------+----------+-----------+-------------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> desc member;
++-------------------+------------------------------------------------------+------+-----+---------+-------+
+| Field             | Type                                                 | Null | Key | Default | Extra |
++-------------------+------------------------------------------------------+------+-----+---------+-------+
+| mid               | varchar(30)                                          | NO   | PRI | NULL    |       |
+| name              | varchar(30)                                          | YES  |     | NULL    |       |
+| address           | varchar(30)                                          | YES  |     | NULL    |       |
+| acc_open_date     | date                                                 | YES  |     | NULL    |       |
+| m_type            | enum('Lifetime','Annual','Half Yearly',' Quarterly') | YES  |     | NULL    |       |
+| fees_paid         | int                                                  | YES  |     | NULL    |       |
+| max_books_allowed | int                                                  | YES  |     | NULL    |       |
+| p_amount          | decimal(7,2)                                         | YES  |     | NULL    |       |
++-------------------+------------------------------------------------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+10) Insert at least 5 records with suitable data. 
+
+mysql> insert into member(mid,name,address,acc_open_date,m_type,fees_paid,max_books_allowed,p_amount)
+    -> values(3,"rohit sharma","pune","2010-2-05",'lifetime',25600,3,45),
+    -> (4,"amit sharma","sangli","2022-2-03",'Quarterly',23300,2,65),
+    -> (5,"anna biradar","jath","2014-12-23",'Half Yearly',21200,3,55);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table member;
++-----+--------------+---------+-------------+---------------+-----------+-------------------+----------+
+| mid | name         | address | m_type      | acc_open_date | fees_paid | max_books_allowed | p_amount |
++-----+--------------+---------+-------------+---------------+-----------+-------------------+----------+
+|   1 | richa sharma | pune    | NULL        | 2010-12-05    |     25000 |                 5 |    50.00 |
+|   2 | garima sen   | pune    | NULL        | 2025-09-26    |      1000 |                 3 |     NULL |
+|   3 | rohit sharma | pune    | Lifetime    | 2010-02-05    |     25600 |                 3 |    45.00 |
+|   4 | amit sharma  | sangli  | Quarterly   | 2022-02-03    |     23300 |                 2 |    65.00 |
+|   5 | anna biradar | jath    | Half Yearly | 2014-12-23    |     21200 |                 3 |    55.00 |
++-----+--------------+---------+-------------+---------------+-----------+-------------------+----------+
+5 rows in set (0.00 sec)
+
+11)  Modify the column Member_name. Decrease the width of the member  
+name to 20 characters. (If it does not allow state the reason for that) 
+
+mysql> alter table member
+    -> modify column name varchar(20);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc member;
++-------------------+-----------------------------------------------------+------+-----+---------+-------+
+| Field             | Type                                                | Null | Key | Default | Extra |
++-------------------+-----------------------------------------------------+------+-----+---------+-------+
+| mid               | int                                                 | NO   | PRI | NULL    |       |
+| name              | varchar(20)                                         | YES  |     | NULL    |       |
+| address           | varchar(30)                                         | YES  |     | NULL    |       |
+| m_type            | enum('Lifetime','Annual','Half Yearly','Quarterly') | YES  |     | NULL    |       |
+| acc_open_date     | date                                                | YES  |     | NULL    |       |
+| fees_paid         | int                                                 | YES  |     | NULL    |       |
+| max_books_allowed | int                                                 | YES  |     | NULL    |       |
+| p_amount          | decimal(7,2)                                        | YES  |     | NULL    |       |
++-------------------+-----------------------------------------------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+12) Try to insert a record with Max_Books_Allowed = 110, Observe   the 
+error that comes.  
+
+mysql> insert into member(mid,name,address,acc_open_date,m_type,fees_paid,max_books_allowed,p_amount)
+    -> values(6,"Kshitij","Pune","2016-08-12","Annual",22500,6,110);
+Query OK, 1 row affected (0.02 sec)
+
+13) Generate another table named Member101 using a Create command 
+along with a simple SQL query on member table. 
+
+mysql> create table member101 as
+    -> select * from member;
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc member101;
++-------------------+-----------------------------------------------------+------+-----+---------+-------+
+| Field             | Type                                                | Null | Key | Default | Extra |
++-------------------+-----------------------------------------------------+------+-----+---------+-------+
+| mid               | int                                                 | NO   |     | NULL    |       |
+| name              | varchar(20)                                         | YES  |     | NULL    |       |
+| address           | varchar(30)                                         | YES  |     | NULL    |       |
+| m_type            | enum('Lifetime','Annual','Half Yearly','Quarterly') | YES  |     | NULL    |       |
+| acc_open_date     | date                                                | YES  |     | NULL    |       |
+| fees_paid         | int                                                 | YES  |     | NULL    |       |
+| max_books_allowed | int                                                 | YES  |     | NULL    |       |
+| p_amount          | decimal(7,2)                                        | YES  |     | NULL    |       |
++-------------------+-----------------------------------------------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+14) Add the constraints on columns max_books_allowed  and penalty_amt 
+as follows 
+a. max_books_allowed  < 100 
+b. penalty_amt maximum 1000 
+Also give names to the constraints. 
+
+
+mysql> alter table member
+    -> add constraint maxbooks check (max_books_allowed<100);
+Query OK, 6 rows affected (0.08 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> alter table member
+    -> add constraint penaltyamnt check (p_amount<=1000);
+Query OK, 6 rows affected (0.08 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+
+mysql> insert into member(mid,name,address,acc_open_date,m_type,fees_paid,max_books_allowed,p_amount)
+    -> values(7,"jay","Pune","2017-08-12","Quarterly",21500,8,111);
+Query OK, 1 row affected (0.02 sec)
+
+15) Drop the table books. 
+
+mysql> drop table books;
+Query OK, 0 rows affected (0.04 sec)
+
+
+
+16) Create table Books again as per the schema description with the 
+following constraints. 
+a. Book_No – Primary Key 
+b. Book_Name – Not Null 
+c. Category – System, Fiction, Database, RDBMS, Others. 
+
+
+mysql> create table books
+    -> (bno int primary key,
+    -> bname varchar(30) not null,
+    -> a_name varchar(30),
+    -> cost decimal(7,2),
+    -> category ENUM('System','Fiction','Database','RDBMS'));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> table books;
+Empty set (0.00 sec)
+
+mysql> desc books;
++----------+---------------------------------------------+------+-----+---------+-------+
+| Field    | Type                                        | Null | Key | Default | Extra |
++----------+---------------------------------------------+------+-----+---------+-------+
+| bno      | int                                         | NO   | PRI | NULL    |       |
+| bname    | varchar(30)                                 | NO   |     | NULL    |       |
+| a_name   | varchar(30)                                 | YES  |     | NULL    |       |
+| cost     | decimal(7,2)                                | YES  |     | NULL    |       |
+| category | enum('System','Fiction','Database','RDBMS') | YES  |     | NULL    |       |
++----------+---------------------------------------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+17) Insert data in Book table as follows: 
+
+
+mysql> insert into books(bno,bname,a_name,cost,category) values
+    -> (101,"Let us c","Denis Ritchie",450,'System'),
+    -> (102,"Oracle –Complete Ref","Loni",550,'Database'),
+    -> (103,"Mastering SQL","Loni",250,'Database'),
+    -> (104,"PL SQL-Ref","Scottt Urman",750,'Database');
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> table books;
++-----+----------------------+---------------+--------+----------+
+| bno | bname                | a_name        | cost   | category |
++-----+----------------------+---------------+--------+----------+
+| 101 | Let us c             | Denis Ritchie | 450.00 | System   |
+| 102 | Oracle ?Complete Ref | Loni          | 550.00 | Database |
+| 103 | Mastering SQL        | Loni          | 250.00 | Database |
+| 104 | PL SQL-Ref           | Scottt Urman  | 750.00 | Database |
++-----+----------------------+---------------+--------+----------+
+4 rows in set (0.00 sec)
+
+18) Insert more records in Book table. 
+
+
+mysql> insert into books(bno,bname,a_name,cost,category) values
+    -> (105,"Let us c","Denis ",50,'System'),
+    -> (106,"Mastering SQL","luioss ",560,'Fiction'),
+    -> (107,"PL SQL-Ref","Levi ",580,'RDBMS');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+19) View the data in the tables using simple SQL query. 
+
+mysql> table books;
++-----+----------------------+---------------+--------+----------+
+| bno | bname                | a_name        | cost   | category |
++-----+----------------------+---------------+--------+----------+
+| 101 | Let us c             | Denis Ritchie | 450.00 | System   |
+| 102 | Oracle ?Complete Ref | Loni          | 550.00 | Database |
+| 103 | Mastering SQL        | Loni          | 250.00 | Database |
+| 104 | PL SQL-Ref           | Scottt Urman  | 750.00 | Database |
+| 105 | Let us c             | Denis         |  50.00 | System   |
+| 106 | Mastering SQL        | luioss        | 560.00 | Fiction  |
+| 107 | PL SQL-Ref           | Levi          | 580.00 | RDBMS    |
++-----+----------------------+---------------+--------+----------+
+7 rows in set (0.00 sec)
+
+20) Insert into Book following data. 
+105,  National Geographic, Adis Scott, 1000,  Science ;
+
+mysql> insert into  books values(108,"National Geographic","Adis Scott",1000,'System');
+Query OK, 1 row affected (0.02 sec)
+
+21) Rename the table Lib_Issue to Issue. 
+
+mysql> alter table lib_issue rename issue;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc issue
+    -> ;
++-------------+------+------+-----+---------+-------+
+| Field       | Type | Null | Key | Default | Extra |
++-------------+------+------+-----+---------+-------+
+| l_issue_id  | int  | YES  |     | NULL    |       |
+| b_no        | int  | YES  |     | NULL    |       |
+| mid         | int  | YES  |     | NULL    |       |
+| issue_date  | date | YES  |     | NULL    |       |
+| return_date | date | YES  |     | NULL    |       |
++-------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+22) Drop table Issue. 
+
+
+mysql> drop table issue;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc issue;
+ERROR 1146 (42S02): Table 'assignment_2.issue' doesn't exist
+
+
+
+23) As per the given structure Create table Issue again with following 
+constraints. 
+ Lib_Issue_Id-Primary key 
+ Book_No-  foreign key 
+ Member_id - foreign key 
+ Issue_date 
+ Return_date 
+
+
+
+mysql> create table issue
+    -> (lib_issue_id int primary key,
+    -> mid int ,
+    -> bookno int,
+    -> issue_date date,
+    -> return_date date);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> alter table issue
+    -> add foreign key (mid) rference mid,
+    -> add foreign key (mid) rference mi^C
+mysql> table member;
++-----+--------------+---------+-------------+---------------+-----------+-------------------+----------+
+| mid | name         | address | m_type      | acc_open_date | fees_paid | max_books_allowed | p_amount |
++-----+--------------+---------+-------------+---------------+-----------+-------------------+----------+
+|   1 | richa sharma | pune    | NULL        | 2010-12-05    |     25000 |                 5 |    50.00 |
+|   2 | garima sen   | pune    | NULL        | 2025-09-26    |      1000 |                 3 |     NULL |
+|   3 | rohit sharma | pune    | Lifetime    | 2010-02-05    |     25600 |                 3 |    45.00 |
+|   4 | amit sharma  | sangli  | Quarterly   | 2022-02-03    |     23300 |                 2 |    65.00 |
+|   5 | anna biradar | jath    | Half Yearly | 2014-12-23    |     21200 |                 3 |    55.00 |
+|   6 | Kshitij      | Pune    | Annual      | 2016-08-12    |     22500 |                 6 |   110.00 |
+|   7 | jay          | Pune    | Quarterly   | 2017-08-12    |     21500 |                 8 |   111.00 |
++-----+--------------+---------+-------------+---------------+-----------+-------------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> table books;
++-----+----------------------+---------------+---------+----------+
+| bno | bname                | a_name        | cost    | category |
++-----+----------------------+---------------+---------+----------+
+| 101 | Let us c             | Denis Ritchie |  450.00 | System   |
+| 102 | Oracle ?Complete Ref | Loni          |  550.00 | Database |
+| 103 | Mastering SQL        | Loni          |  250.00 | Database |
+| 104 | PL SQL-Ref           | Scottt Urman  |  750.00 | Database |
+| 105 | Let us c             | Denis         |   50.00 | System   |
+| 106 | Mastering SQL        | luioss        |  560.00 | Fiction  |
+| 107 | PL SQL-Ref           | Levi          |  580.00 | RDBMS    |
+| 108 | National Geographic  | Adis Scott    | 1000.00 | System   |
++-----+----------------------+---------------+---------+----------+
+8 rows in set (0.00 sec)
+
+mysql> alter table issue
+    -> add foreign key (mid) references  member (mid),
+    -> add foreign key (bookno) references  books (bno);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> table issue;
+Empty set (0.00 sec)
+
+mysql> desc issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| lib_issue_id | int  | NO   | PRI | NULL    |       |
+| mid          | int  | YES  | MUL | NULL    |       |
+| bookno       | int  | YES  | MUL | NULL    |       |
+| issue_date   | date | YES  |     | NULL    |       |
+| return_date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+24)  Insert following data into Issue table.  
+
+
+
+mysql> insert into issue(lib_issue_id,bookno,mid,issue_date) values
+    -> (7001,101,1,"10-12-06"),
+    -> (7002,102,2,"25-12-06"),
+    -> (7003,103,1,"15-01-06"),
+    -> (7004,101,1,"04-07-06"),
+    -> (7005,104,2,"15-11-06"),
+    -> (7006,101,3,"18-02-06");
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7004 |    1 |    101 | 2004-07-06 | NULL        |
+|         7005 |    2 |    104 | 2015-11-06 | NULL        |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
++--------------+------+--------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> show create table issue;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| issue | CREATE TABLE `issue` (
+  `lib_issue_id` int NOT NULL,
+  `mid` int DEFAULT NULL,
+  `bookno` int DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  PRIMARY KEY (`lib_issue_id`),
+  KEY `mid` (`mid`),
+  KEY `bookno` (`bookno`),
+  CONSTRAINT `issue_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`),
+  CONSTRAINT `issue_ibfk_2` FOREIGN KEY (`bookno`) REFERENCES `books` (`bno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+
+25) Remove the constraints on Issue table 
+
+
+mysql> alter table issue
+    -> drop constraint issue_ibfk_1,
+    -> drop constraint issue_ibfk_2;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7004 |    1 |    101 | 2004-07-06 | NULL        |
+|         7005 |    2 |    104 | 2015-11-06 | NULL        |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
++--------------+------+--------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> desc issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| lib_issue_id | int  | NO   | PRI | NULL    |       |
+| mid          | int  | YES  | MUL | NULL    |       |
+| bookno       | int  | YES  | MUL | NULL    |       |
+| issue_date   | date | YES  |     | NULL    |       |
+| return_date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table issue;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                        |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| issue | CREATE TABLE `issue` (
+  `lib_issue_id` int NOT NULL,
+  `mid` int DEFAULT NULL,
+  `bookno` int DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  PRIMARY KEY (`lib_issue_id`),
+  KEY `mid` (`mid`),
+  KEY `bookno` (`bookno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+26) Insert a record in Issue table. The member_id should not exist in  
+member table.
+
+
+mysql> insert into issue(lib_issue_id,bookno,return_date,issue_date) values
+    -> (7007,108,"008-09-08","04-07-06");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7004 |    1 |    101 | 2004-07-06 | NULL        |
+|         7005 |    2 |    104 | 2015-11-06 | NULL        |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
+|         7007 | NULL |    108 | 2004-07-06 | 0008-09-08  |
++--------------+------+--------+------------+-------------+
+7 rows in set (0.00 sec)
+
+
+27) Now enable the constraints of Issue table. Observe the error 
+
+
+mysql> alter table issue
+    -> add constraint issue_ibfk_2 foreign key (mid) references member(mid);
+Query OK, 7 rows affected (0.07 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> alter table issue
+    -> add constraint issue_ibfk_1 foreign key (bookno) references books(bno);
+Query OK, 7 rows affected (0.07 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+
+mysql> desc issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| lib_issue_id | int  | NO   | PRI | NULL    |       |
+| mid          | int  | YES  | MUL | NULL    |       |
+| bookno       | int  | YES  | MUL | NULL    |       |
+| issue_date   | date | YES  |     | NULL    |       |
+| return_date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table issue;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| issue | CREATE TABLE `issue` (
+  `lib_issue_id` int NOT NULL,
+  `mid` int DEFAULT NULL,
+  `bookno` int DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  PRIMARY KEY (`lib_issue_id`),
+  KEY `issue_ibfk_2` (`mid`),
+  KEY `issue_ibfk_1` (`bookno`),
+  CONSTRAINT `issue_ibfk_1` FOREIGN KEY (`bookno`) REFERENCES `books` (`bno`),
+  CONSTRAINT `issue_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+
+
+
+28) Delete the record inserted at Q-27) and enable the constraints. 
+
+
+mysql> delete from issue where lib_issue_id =7007;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7004 |    1 |    101 | 2004-07-06 | NULL        |
+|         7005 |    2 |    104 | 2015-11-06 | NULL        |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
++--------------+------+--------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table issue
+    -> drop foreign key issue_ibfk_1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table issue
+    -> drop foreign key issue_ibfk_2;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7004 |    1 |    101 | 2004-07-06 | NULL        |
+|         7005 |    2 |    104 | 2015-11-06 | NULL        |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
++--------------+------+--------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> desc issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| lib_issue_id | int  | NO   | PRI | NULL    |       |
+| mid          | int  | YES  | MUL | NULL    |       |
+| bookno       | int  | YES  | MUL | NULL    |       |
+| issue_date   | date | YES  |     | NULL    |       |
+| return_date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table issue;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                       |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| issue | CREATE TABLE `issue` (
+  `lib_issue_id` int NOT NULL,
+  `mid` int DEFAULT NULL,
+  `bookno` int DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  PRIMARY KEY (`lib_issue_id`),
+  KEY `issue_ibfk_2` (`mid`),
+  KEY `issue_ibfk_1` (`bookno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> alter table issue
+    -> add constraint issue_ibfk_1 foreign key(bookno) references books(bno);
+Query OK, 6 rows affected (0.07 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> alter table issue
+    -> add constraint issue_ibfk_2 foreign key(mid) references member(mid);
+Query OK, 6 rows affected (0.07 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+
+29) Try to delete the record of member id 1 from member table and  
+observe the error . 
+
+
+
+mysql> delete from member where mid =1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`assignment_2`.`issue`, CONSTRAINT `issue_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`))
+
+
+30) View the data and structure of all the three tables Member,  
+Issue, Book. 
+
+
+mysql> show create table member;
++--------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
++--------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| member | CREATE TABLE `member` (
+  `mid` int NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
+  `m_type` enum('Lifetime','Annual','Half Yearly','Quarterly') DEFAULT NULL,
+  `acc_open_date` date DEFAULT NULL,
+  `fees_paid` int DEFAULT NULL,
+  `max_books_allowed` int DEFAULT NULL,
+  `p_amount` decimal(7,2) DEFAULT NULL,
+  PRIMARY KEY (`mid`),
+  CONSTRAINT `maxbooks` CHECK ((`max_books_allowed` < 100)),
+  CONSTRAINT `penaltyamnt` CHECK ((`p_amount` <= 1000))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table issue;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| issue | CREATE TABLE `issue` (
+  `lib_issue_id` int NOT NULL,
+  `mid` int DEFAULT NULL,
+  `bookno` int DEFAULT NULL,
+  `issue_date` date DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  PRIMARY KEY (`lib_issue_id`),
+  KEY `issue_ibfk_1` (`bookno`),
+  KEY `issue_ibfk_2` (`mid`),
+  CONSTRAINT `issue_ibfk_1` FOREIGN KEY (`bookno`) REFERENCES `books` (`bno`),
+  CONSTRAINT `issue_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `member` (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table books;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| books | CREATE TABLE `books` (
+  `bno` int NOT NULL,
+  `bname` varchar(30) NOT NULL,
+  `a_name` varchar(30) DEFAULT NULL,
+  `cost` decimal(7,2) DEFAULT NULL,
+  `category` enum('System','Fiction','Database','RDBMS') DEFAULT NULL,
+  PRIMARY KEY (`bno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+
+31) Modify the Return_Date of 7004,7005 to 15 days after the    
+Issue_date.
+
+
+mysql> update issue set return_date=issue_date+15 where lib_issue_id in (7004,7005);
+Query OK, 2 rows affected (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7004 |    1 |    101 | 2004-07-06 | 2004-07-21  |
+|         7005 |    2 |    104 | 2015-11-06 | 2015-11-21  |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
++--------------+------+--------+------------+-------------+
+6 rows in set (0.00 sec)
+
+
+32) Remove all the records from Issue table where member_ID is 1  
+and Issue date in before 10-Dec-06. 
+
+
+mysql> delete from issue where mid=1 and issue_date<"10-12-06";
+Query OK, 1 row affected (0.02 sec)
+
+mysql> table issue;
++--------------+------+--------+------------+-------------+
+| lib_issue_id | mid  | bookno | issue_date | return_date |
++--------------+------+--------+------------+-------------+
+|         7001 |    1 |    101 | 2010-12-06 | NULL        |
+|         7002 |    2 |    102 | 2025-12-06 | NULL        |
+|         7003 |    1 |    103 | 2015-01-06 | NULL        |
+|         7005 |    2 |    104 | 2015-11-06 | 2015-11-21  |
+|         7006 |    3 |    101 | 2018-02-06 | NULL        |
++--------------+------+--------+------------+-------------+
+5 rows in set (0.00 sec)
+
+33) Remove all the records from Book table with category other   
+than RDBMS and Database. 
+
+
+mysql> delete from books where category not in ('RDBMS','Database');
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`assignment_2`.`issue`, CONSTRAINT `issue_ibfk_1` FOREIGN KEY (`bookno`) REFERENCES `books` (`bno`))
+
+34) Remove the table Member. 
+
+
+mysql> drop table member;
+ERROR 3730 (HY000): Cannot drop table 'member' referenced by a foreign key constraint 'issue_ibfk_2' on table 'issue'.
+
+35) Remove the table Book.
+
+mysql> drop table books
+    -> ;
+ERROR 3730 (HY000): Cannot drop table 'books' referenced by a foreign key constraint 'issue_ibfk_1' on table 'issue'.

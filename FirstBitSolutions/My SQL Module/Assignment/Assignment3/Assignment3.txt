@@ -1,0 +1,362 @@
+Assignment-3
+
+1. Write a SQL statement to insert a record as follows: 
+a.Department : 
+
+
+
+mysql> desc department
+    -> ;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| did     | decimal(4,0) | NO   | PRI | 0       |       |
+| depname | varchar(30)  | NO   |     | NULL    |       |
+| mid     | decimal(6,0) | NO   | PRI | 0       |       |
+| lid     | decimal(4,0) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into department(did,depname,mid,lid)
+    -> values(10,"Administration",200,1700),
+    -> (20,"Marketing",201,1800),
+    -> (30,"Purchasing",114,1700),
+    -> (40,"Human Resources",203,2400),
+    -> (50,"Shipping",121,1500),
+    -> (60,"IT",103,1400),
+    -> (70,"Public Relations",204,2700),
+    -> (80,"Sales",145,2500);
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+b.Employees : 
+
+mysql> insert into employee(eid,fname,lname,email,pno,hdate,jid,salary,managerid,depid)
+    ->  values(100,"steven","king","sking","515.123.4567","1987-06-17","AD_PRES",1700,200,10),
+    -> (101,"Lex","De Haan","LDEHAAN","515.123.4568","1987-06-18","AD_VP",17000,200,10),
+    -> (102,"Neena","Kochhar","NKOCHHAR","515.123.4569","1987-06-19","AD_VP",17000,200,10),
+    ->  (103,"Alexander","Hunold","AHUNOLD","515.123.4567","1987-06-20","IT_PROG",9000,103,60),
+    -> (104,"Bruce","ErnsT","BERNST","515.123.4568","1987-06-21","IT_PROG",9000,103,60),
+    ->  (105,"David","Austin","DAUSTIN","590.423.4569","1987-06-22","IT_PROG",4800,103,60),
+    -> (106,"Valli","Pataballa","VPATABAL","590.423.4560","1987-06-23","IT_PROG",4800,103,60),
+    ->  (107,"Diana","Lorentz","DLORENTZ","590.423.4567","1987-06-24","IT_PROG",4200,114,30),
+    -> (108,"Nancy","Greenberg","NGREENBE","590.423.4569","1987-06-25","SA_MAN",12000,145,80),
+    -> (109,"Daniel","Faviet","DFAVEIT","590.423.4169","1987-06-26","SA_MAN",9000,145,80);
+Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email    | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+|  100 | steven    | king      | sking    | 515.123.4567 | 1987-06-17 | AD_PRES |   1700 |       NULL |       200 |    10 |
+|  101 | Lex       | De Haan   | LDEHAAN  | 515.123.4568 | 1987-06-18 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR | 515.123.4569 | 1987-06-19 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD  | 515.123.4567 | 1987-06-20 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST   | 515.123.4568 | 1987-06-21 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ | 590.423.4567 | 1987-06-24 | IT_PROG |   4200 |       NULL |       114 |    30 |
+|  108 | Nancy     | Greenberg | NGREENBE | 590.423.4569 | 1987-06-25 | SA_MAN  |  12000 |       NULL |       145 |    80 |
+|  109 | Daniel    | Faviet    | DFAVEIT  | 590.423.4169 | 1987-06-26 | SA_MAN  |   9000 |       NULL |       145 |    80 |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> table employee;
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email    | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN  | 515.123.4568 | 1987-06-18 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR | 515.123.4569 | 1987-06-19 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD  | 515.123.4567 | 1987-06-20 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST   | 515.123.4568 | 1987-06-21 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ | 590.423.4567 | 1987-06-24 | IT_PROG |   4200 |       NULL |       114 |    30 |
+|  108 | Nancy     | Greenberg | NGREENBE | 590.423.4569 | 1987-06-25 | SA_MAN  |  12000 |       NULL |       145 |    80 |
+|  109 | Daniel    | Faviet    | DFAVEIT  | 590.423.4169 | 1987-06-26 | SA_MAN  |   9000 |       NULL |       145 |    80 |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee values(100,"Steven","King","SKING","515.123.4567","1987-06-17","AD_PRES",24000,0,200,10);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> table employee;
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email    | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN  | 515.123.4568 | 1987-06-18 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR | 515.123.4569 | 1987-06-19 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD  | 515.123.4567 | 1987-06-20 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST   | 515.123.4568 | 1987-06-21 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ | 590.423.4567 | 1987-06-24 | IT_PROG |   4200 |       NULL |       114 |    30 |
+|  108 | Nancy     | Greenberg | NGREENBE | 590.423.4569 | 1987-06-25 | SA_MAN  |  12000 |       NULL |       145 |    80 |
+|  109 | Daniel    | Faviet    | DFAVEIT  | 590.423.4169 | 1987-06-26 | SA_MAN  |   9000 |       NULL |       145 |    80 |
+|  100 | Steven    | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES |  24000 |          0 |       200 |    10 |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+
+
+2. Write a SQL statement to insert 3 rows by a single insert statement. 
+
+
+
+mysql> insert into employee(eid,fname,lname,email,pno,hdate,jid,salary,managerid,depid)
+    -> values(110,"sulthan","king","Jaylan","515.123.4578","1987-08-24","AD_PRES",19000,204,70),
+    -> (111,"Dred","king","Farhan","515.123.4579","1987-08-26","AD_PRES",13000,145,80),
+    -> (112,"Hub","colonge","Faisal","515.123.4580","1987-08-27","AD_PRES",12000,203,40);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email    | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN  | 515.123.4568 | 1987-06-18 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR | 515.123.4569 | 1987-06-19 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD  | 515.123.4567 | 1987-06-20 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST   | 515.123.4568 | 1987-06-21 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ | 590.423.4567 | 1987-06-24 | IT_PROG |   4200 |       NULL |       114 |    30 |
+|  108 | Nancy     | Greenberg | NGREENBE | 590.423.4569 | 1987-06-25 | SA_MAN  |  12000 |       NULL |       145 |    80 |
+|  109 | Daniel    | Faviet    | DFAVEIT  | 590.423.4169 | 1987-06-26 | SA_MAN  |   9000 |       NULL |       145 |    80 |
+|  100 | Steven    | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES |  24000 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Jaylan   | 515.123.4578 | 1987-08-24 | AD_PRES |  19000 |       NULL |       204 |    70 |
+|  111 | Dred      | king      | Farhan   | 515.123.4579 | 1987-08-26 | AD_PRES |  13000 |       NULL |       145 |    80 |
+|  112 | Hub       | colonge   | Faisal   | 515.123.4580 | 1987-08-27 | AD_PRES |  12000 |       NULL |       203 |    40 |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
+
+
+
+3. Write a SQL statement to insert one row in jobs table to ensure that no duplicate 
+value will be entered in the job_id column. 
+
+
+
+
+mysql> insert into jobs(jid,jtitle,minsalary,maxsalary)
+    -> values("AD_PRES","President",20000,40000),
+    -> ("AD_VP","Administration Vice President",15000,30000),
+    -> ("AD_ASST","Administration Assistant",3000,6000),
+    -> ("FI_MGR","Finance Manager",8200,16000),
+    -> ("FI_ACCOUNT","Accountant",4200,9000),
+    -> ("AC_MGR","Accounting Manager",8200,16000),
+    -> ("AC_ACCOUNT","Public Accountant",4200,9000),
+    -> ("SA_MAN","Sales Manager",10000,20000);
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> table jobs;
++------------+-------------------------------+-----------+-----------+
+| jid        | jtitle                        | minsalary | maxsalary |
++------------+-------------------------------+-----------+-----------+
+| AC_ACCOUNT | Public Accountant             |   4200.00 |   9000.00 |
+| AC_MGR     | Accounting Manager            |   8200.00 |  16000.00 |
+| AD_ASST    | Administration Assistant      |   3000.00 |   6000.00 |
+| AD_PRES    | President                     |  20000.00 |  40000.00 |
+| AD_VP      | Administration Vice President |  15000.00 |  30000.00 |
+| FI_ACCOUNT | Accountant                    |   4200.00 |   9000.00 |
+| FI_MGR     | Finance Manager               |   8200.00 |  16000.00 |
+| SA_MAN     | Sales Manager                 |  10000.00 |  20000.00 |
++------------+-------------------------------+-----------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> alter table jobs
+    -> modify column maxsalary float(7,2) check(maxsalary<=50000);
+Query OK, 8 rows affected, 1 warning (0.07 sec)
+Records: 8  Duplicates: 0  Warnings: 1
+
+mysql> table jobs;
++------------+-------------------------------+-----------+-----------+
+| jid        | jtitle                        | minsalary | maxsalary |
++------------+-------------------------------+-----------+-----------+
+| AC_ACCOUNT | Public Accountant             |   4200.00 |   9000.00 |
+| AC_MGR     | Accounting Manager            |   8200.00 |  16000.00 |
+| AD_ASST    | Administration Assistant      |   3000.00 |   6000.00 |
+| AD_PRES    | President                     |  20000.00 |  40000.00 |
+| AD_VP      | Administration Vice President |  15000.00 |  30000.00 |
+| FI_ACCOUNT | Accountant                    |   4200.00 |   9000.00 |
+| FI_MGR     | Finance Manager               |   8200.00 |  16000.00 |
+| SA_MAN     | Sales Manager                 |  10000.00 |  20000.00 |
++------------+-------------------------------+-----------+-----------+
+8 rows in set (0.00 sec)
+
+
+mysql> insert into employee(eid,fname,lname,email,pno,hdate,jid,salary,managerid,depid)
+    -> values(110,"sulthan","king","Jaylan","515.123.4578","1987-08-24","AD_PRES",19000,204,70),
+    -> (111,"Dred","king","Farhan","515.123.4579","1987-08-26","AD_PRES",13000,145,80),
+    -> (112,"Hub","colonge","Faisal","515.123.4580","1987-08-27","AD_PRES",12000,203,40);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email    | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN  | 515.123.4568 | 1987-06-18 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR | 515.123.4569 | 1987-06-19 | AD_VP   |  17000 |       NULL |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD  | 515.123.4567 | 1987-06-20 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST   | 515.123.4568 | 1987-06-21 | IT_PROG |   9000 |       NULL |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |   4800 |       NULL |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ | 590.423.4567 | 1987-06-24 | IT_PROG |   4200 |       NULL |       114 |    30 |
+|  108 | Nancy     | Greenberg | NGREENBE | 590.423.4569 | 1987-06-25 | SA_MAN  |  12000 |       NULL |       145 |    80 |
+|  109 | Daniel    | Faviet    | DFAVEIT  | 590.423.4169 | 1987-06-26 | SA_MAN  |   9000 |       NULL |       145 |    80 |
+|  100 | Steven    | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES |  24000 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Jaylan   | 515.123.4578 | 1987-08-24 | AD_PRES |  19000 |       NULL |       204 |    70 |
+|  111 | Dred      | king      | Farhan   | 515.123.4579 | 1987-08-26 | AD_PRES |  13000 |       NULL |       145 |    80 |
+|  112 | Hub       | colonge   | Faisal   | 515.123.4580 | 1987-08-27 | AD_PRES |  12000 |       NULL |       203 |    40 |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
+
+mysql> alter table jobs
+    -> modify column minsalary float(7,2) check(minsalary<=25000);
+Query OK, 8 rows affected, 1 warning (0.06 sec)
+Records: 8  Duplicates: 0  Warnings: 1
+
+4. Write SQL statement to increment salary of each emp by 10%. 
+
+
+mysql> update employee set salary=salary*1.10;
+Query OK, 13 rows affected (0.03 sec)
+Rows matched: 13  Changed: 13  Warnings: 0
+
+mysql> table employee;
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email    | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN  | 515.123.4568 | 1987-06-18 | AD_VP   |  18700 |       NULL |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR | 515.123.4569 | 1987-06-19 | AD_VP   |  18700 |       NULL |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD  | 515.123.4567 | 1987-06-20 | IT_PROG |   9900 |       NULL |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST   | 515.123.4568 | 1987-06-21 | IT_PROG |   9900 |       NULL |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |   5280 |       NULL |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |   5280 |       NULL |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ | 590.423.4567 | 1987-06-24 | IT_PROG |   4620 |       NULL |       114 |    30 |
+|  108 | Nancy     | Greenberg | NGREENBE | 590.423.4569 | 1987-06-25 | SA_MAN  |  13200 |       NULL |       145 |    80 |
+|  109 | Daniel    | Faviet    | DFAVEIT  | 590.423.4169 | 1987-06-26 | SA_MAN  |   9900 |       NULL |       145 |    80 |
+|  100 | Steven    | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES |  26400 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Jaylan   | 515.123.4578 | 1987-08-24 | AD_PRES |  20900 |       NULL |       204 |    70 |
+|  111 | Dred      | king      | Farhan   | 515.123.4579 | 1987-08-26 | AD_PRES |  14300 |       NULL |       145 |    80 |
+|  112 | Hub       | colonge   | Faisal   | 515.123.4580 | 1987-08-27 | AD_PRES |  13200 |       NULL |       203 |    40 |
++------+-----------+-----------+----------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
+
+5. Write a SQL statement to change the email column of employees table with 'not 
+available' for those employees whose department_id is 80 and gets a 
+commission is less than .20%
+
+
+mysql> update employee set commission=0 WHERE commission is NULL;
+Query OK, 12 rows affected (0.02 sec)
+Rows matched: 12  Changed: 12  Warnings: 0
+
+mysql> table employee;
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email         | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN       | 515.123.4568 | 1987-06-18 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR      | 515.123.4569 | 1987-06-19 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD       | 515.123.4567 | 1987-06-20 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST        | 515.123.4568 | 1987-06-21 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ      | 590.423.4567 | 1987-06-24 | IT_PROG |   4620 |          0 |       114 |    30 |
+|  108 | Nancy     | Greenberg | Not available | 590.423.4569 | 1987-06-25 | SA_MAN  |  13200 |          0 |       145 |    80 |
+|  109 | Daniel    | Faviet    | Not available | 590.423.4169 | 1987-06-26 | SA_MAN  |   9900 |          0 |       145 |    80 |
+|  100 | Steven    | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES |  26400 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Jaylan        | 515.123.4578 | 1987-08-24 | AD_PRES |  20900 |          0 |       204 |    70 |
+|  111 | Dred      | king      | Not available | 515.123.4579 | 1987-08-26 | AD_PRES |  14300 |          0 |       145 |    80 |
+|  112 | Hub       | colonge   | Faisal        | 515.123.4580 | 1987-08-27 | AD_PRES |  13200 |          0 |       203 |    40 |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
+
+mysql> update employee set email = "Not available" where depid=80  and commission<0.002;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 3  Changed: 0  Warnings: 0
+
+mysql> table employee;
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email         | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN       | 515.123.4568 | 1987-06-18 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR      | 515.123.4569 | 1987-06-19 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD       | 515.123.4567 | 1987-06-20 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST        | 515.123.4568 | 1987-06-21 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ      | 590.423.4567 | 1987-06-24 | IT_PROG |   4620 |          0 |       114 |    30 |
+|  108 | Nancy     | Greenberg | Not available | 590.423.4569 | 1987-06-25 | SA_MAN  |  13200 |          0 |       145 |    80 |
+|  109 | Daniel    | Faviet    | Not available | 590.423.4169 | 1987-06-26 | SA_MAN  |   9900 |          0 |       145 |    80 |
+|  100 | Steven    | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES |  26400 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Jaylan        | 515.123.4578 | 1987-08-24 | AD_PRES |  20900 |          0 |       204 |    70 |
+|  111 | Dred      | king      | Not available | 515.123.4579 | 1987-08-26 | AD_PRES |  14300 |          0 |       145 |    80 |
+|  112 | Hub       | colonge   | Faisal        | 515.123.4580 | 1987-08-27 | AD_PRES |  13200 |          0 |       203 |    40 |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
+
+
+6. Write a SQL statement to change the email column of employees table with 'not 
+available' for those employees who belongs to the 'Purchasing' department.
+
+
+mysql> update employee
+    -> set email ="Not Available"
+    -> where depid=(select depname from department where depname="purchasing");
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 1
+
+
+mysql> table employee;
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email         | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | LDEHAAN       | 515.123.4568 | 1987-06-18 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  102 | Neena     | Kochhar   | NKOCHHAR      | 515.123.4569 | 1987-06-19 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  103 | Alexander | Hunold    | AHUNOLD       | 515.123.4567 | 1987-06-20 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  104 | Bruce     | ErnsT     | BERNST        | 515.123.4568 | 1987-06-21 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  105 | David     | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  106 | Valli     | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  107 | Diana     | Lorentz   | DLORENTZ      | 590.423.4567 | 1987-06-24 | IT_PROG |   4620 |          0 |       114 |    30 |
+|  108 | Nancy     | Greenberg | Not available | 590.423.4569 | 1987-06-25 | SA_MAN  |  13200 |          0 |       145 |    80 |
+|  109 | Daniel    | Faviet    | Not available | 590.423.4169 | 1987-06-26 | SA_MAN  |   9900 |          0 |       145 |    80 |
+|  100 | Steven    | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES |  26400 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Jaylan        | 515.123.4578 | 1987-08-24 | AD_PRES |  20900 |          0 |       204 |    70 |
+|  111 | Dred      | king      | Not available | 515.123.4579 | 1987-08-26 | AD_PRES |  14300 |          0 |       145 |    80 |
+|  112 | Hub       | colonge   | Faisal        | 515.123.4580 | 1987-08-27 | AD_PRES |  13200 |          0 |       203 |    40 |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
+
+
+7. Write a SQL statement to change the email and commission_pct column of 
+employees table with 'not available' and 0.10 for all employees. 
+
+
+mysql> update employee
+    -> set email="Not available",
+    -> commission=0.10;
+Query OK, 10 rows affected, 13 warnings (0.01 sec)
+Rows matched: 13  Changed: 10  Warnings: 13
+
+mysql> table employee;
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+| eid  | fname     | lname     | email         | pno          | hdate      | jid     | salary | commission | managerid | depid |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+|  101 | Lex       | De Haan   | Not available | 515.123.4568 | 1987-06-18 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  102 | Neena     | Kochhar   | Not available | 515.123.4569 | 1987-06-19 | AD_VP   |  18700 |          0 |       200 |    10 |
+|  103 | Alexander | Hunold    | Not available | 515.123.4567 | 1987-06-20 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  104 | Bruce     | ErnsT     | Not available | 515.123.4568 | 1987-06-21 | IT_PROG |   9900 |          0 |       103 |    60 |
+|  105 | David     | Austin    | Not available | 590.423.4569 | 1987-06-22 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  106 | Valli     | Pataballa | Not available | 590.423.4560 | 1987-06-23 | IT_PROG |   5280 |          0 |       103 |    60 |
+|  107 | Diana     | Lorentz   | Not available | 590.423.4567 | 1987-06-24 | IT_PROG |   4620 |          0 |       114 |    30 |
+|  108 | Nancy     | Greenberg | Not available | 590.423.4569 | 1987-06-25 | SA_MAN  |  13200 |          0 |       145 |    80 |
+|  109 | Daniel    | Faviet    | Not available | 590.423.4169 | 1987-06-26 | SA_MAN  |   9900 |          0 |       145 |    80 |
+|  100 | Steven    | King      | Not available | 515.123.4567 | 1987-06-17 | AD_PRES |  26400 |          0 |       200 |    10 |
+|  110 | sulthan   | king      | Not available | 515.123.4578 | 1987-08-24 | AD_PRES |  20900 |          0 |       204 |    70 |
+|  111 | Dred      | king      | Not available | 515.123.4579 | 1987-08-26 | AD_PRES |  14300 |          0 |       145 |    80 |
+|  112 | Hub       | colonge   | Not available | 515.123.4580 | 1987-08-27 | AD_PRES |  13200 |          0 |       203 |    40 |
++------+-----------+-----------+---------------+--------------+------------+---------+--------+------------+-----------+-------+
+13 rows in set (0.00 sec)
